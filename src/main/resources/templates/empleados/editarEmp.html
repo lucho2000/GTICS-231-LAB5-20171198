@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+            crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <title>Editar empleado</title>
 </head>
 <body>
@@ -11,7 +15,7 @@
     <div class="container px-4 py-5">
         <h1 class="pb-2 mb-3 border-bottom">Editar empleado</h1>
         <form method="post" th:action="@{'/empleado/save'}" class="mt-2">
-            <input th:value="${empleado.id}" name="shipperId" type="hidden" />
+            <input th:value="${empleado.id}" name="id" type="hidden" />
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre</label>
                 <input th:value="${empleado.firstName}" name="nombre" type="text" class="form-control" id="nombre" />
@@ -21,18 +25,26 @@
                 <input th:value="${empleado.lastName}" name="apellido" type="text" class="form-control" id="apellido" />
             </div>
             <div class="mb-3">
-                <label for="puesto" class="form-label">puesto</label>
-                <input th:value="${empleado.getJob().getJobTitle()}" name="puesto" type="text" class="form-control" id="puesto" />
+                <label for="email" class="form-label">email</label>
+                <input th:value="${empleado.email}" name="email" type="text" class="form-control" id="email" />
             </div>
             <div class="mb-3">
-                <label for="apellido" class="form-label">apellido</label>
-                <input th:value="${empleado.lastName}" name="apellido" type="text" class="form-control" id="apellido" />
+                <label for="salary" class="form-label">sueldo</label>
+                <input th:value="${empleado.salary}" name="salary" type="text" class="form-control" id="salary" />
             </div>
-            <a th:href="@{'/shipper/list'}" class="btn btn-danger">Cancelar</a>
+            <a th:href="@{'/empleado/list'}" class="btn btn-danger">Cancelar</a>
             <button type="submit" class="btn btn-primary">Actualizar</button>
         </form>
     </div>
 </main>
-<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 </body>
 </html>

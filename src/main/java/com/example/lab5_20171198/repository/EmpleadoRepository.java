@@ -23,17 +23,23 @@ public interface EmpleadoRepository extends JpaRepository<Empleado,Integer> {
             nativeQuery = true)
     void guardarEmpleado(String nombre, String apellido, String email, String contrasena, String job_id, double sueldo, int jefe_id, int departamento_id);
 
-    //List<Empleado> findByCompanyname(String nombre);
 
     /*@Query(value = "select * from employees where firstName = ?1",
             nativeQuery = true)
     List<Empleado> buscarTransPorCompName(String nombre);*/
 
 
-    //@Query(nativeQuery = true, value = "SELECT e.employee_id, e.first_name, e.last_name, d.department_name, j.job_title FROM employees e left join departments d on e.department_id=d.department_id inner join jobs j on e.job_id=j.job_id order by employee_id")
-    //List<Empleado> listarPorPuestoYDepartment();
+    @Query(nativeQuery = true, value = "SELECT e.* from employees e \n" +
+            "inner join jobs j on e.job_id=j.job_id\n" +
+            "inner join departments d on e.department_id=d.department_id \n" +
+            "inner join locations l on d.location_id=l.location_id\n" +
+            "where ((e.first_name like %?1%) or (e.last_name like %?1%) or (j.job_title like %?1%) or (d.department_name like %?1%) or (l.city like %?1%))")
+    List<Empleado> buscarPorNombreApellidoPuestoDepartment(String texto);
 
-   /* @Transactional
+    @Query(value = "select * from employees where enabled =1", nativeQuery = true)
+    List<Empleado> listarEmpleadosEnabled();
+
+    /*@Transactional
     @Modifying
     @Query(nativeQuery = true,
             value = "update shippers set companyname = ?1 where shipperid = ?2")

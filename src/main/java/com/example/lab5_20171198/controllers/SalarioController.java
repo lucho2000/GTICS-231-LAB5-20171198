@@ -37,4 +37,14 @@ public class SalarioController {
 
         return "reportes/salario";
     }
+
+    @GetMapping("/tentativa")
+    public String tentativa() {
+
+        //List<Jobs> listaDto = ;
+        //model.addAttribute("listaJobsDto", jobRepository.jobsPorMinyMaxSalary());
+
+
+        return "reportes/tentativa";
+    }
 }

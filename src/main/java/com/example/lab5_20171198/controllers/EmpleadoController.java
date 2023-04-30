@@ -37,7 +37,7 @@ public class EmpleadoController {
     @GetMapping(value = {"/list", ""})
     public String listarEmpleados(Model model) {
 
-        List<Empleado> lista = empleadoRepository.findAll();
+        List<Empleado> lista = empleadoRepository.listarEmpleadosEnabled();
         model.addAttribute("empleadoList", lista);
         //model.addAttribute("empleadoPorRegion", employeeRepository.listarEmpleadosPorRegion());
        //model.addAttribute("empleadosPorPais",employeeRepository.listarEmpleadosPorPais());
@@ -54,7 +54,7 @@ public class EmpleadoController {
 
         model.addAttribute("puestos", jobRepository.findAll());
         model.addAttribute("departamentos", departmentRepository.findAll());
-        model.addAttribute("empleadoList", empleadoRepository.findAll());
+        model.addAttribute("empleadoList", empleadoRepository.listarEmpleadosEnabled());
         return "empleados/nuevoEmpleado";
     }
 
@@ -92,22 +92,24 @@ public class EmpleadoController {
     }
 
     @GetMapping("/delete")
-    public String borrarEmpleado(@RequestParam("id") int id) {
+    public String borrarEmpleado(@RequestParam("id") int id, RedirectAttributes attr) {
 
         Optional<Empleado> optShipper = empleadoRepository.findById(id);
         if (optShipper.isPresent()) {
             empleadoRepository.borrarEmpleado(id);
+            attr.addFlashAttribute("msg", "Empleado borrado exitosamente");
         }
         return "redirect:/empleado/list";
 
     }
 
     @PostMapping("/BuscarEmpleado")
-    public String buscarTransportista(@RequestParam("searchField") String searchField,
+    public String buscarEmpleado(@RequestParam("searchField") String searchField,
                                       Model model) {
 
-        //List<Empleado> listaEmpleados = empleadoRepository.buscarTransPorCompName(searchField);
-        //model.addAttribute("empleadosList", listaEmpleados);
+        List<Empleado> listaEmpleados = empleadoRepository.buscarPorNombreApellidoPuestoDepartment(searchField);
+        model.addAttribute("empleadoList", listaEmpleados);
+        model.addAttribute("textoBuscado", searchField);
 
         return "empleados/listaEmpleados";
     }

@@ -14,7 +14,9 @@
 <main>
   <div class="container px-4 py-5">
 
-      <a class="btn btn-primary" th:href="@{'/empleado/new'}">Nuevo empleado</a>
+    <div th:replace="~{fragments/principal.html::menu}"></div>
+
+      <a class="btn btn-outline-success" th:href="@{'/empleado/new'}">Nuevo empleado</a>
       <a class="btn btn-secondary ms-auto" th:href="@{'/'}">Regresar</a>
 
     <form method="post" th:action="@{/empleado/BuscarEmpleado}">
@@ -25,15 +27,12 @@
         </div>
 
         <div class="col-1">
-          <button class="btn btn-success" type="submit">Buscar</button>
+          <button class="btn btn-outline-primary" type="submit">Buscar</button>
         </div>
         <div class="col-1">
-          <a class="btn btn-secondary" th:href="@{/empleado}">Limpiar</a>
+          <a class="btn btn-outline-danger" th:href="@{/empleado}">Limpiar</a>
         </div>
-
-
       </div>
-
     </form>
     <div class="alert alert-success" role="alert" th:if="${msg != null}" th:text="${msg}">
       A simple success alert—check it out!

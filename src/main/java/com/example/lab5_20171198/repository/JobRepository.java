@@ -12,6 +12,6 @@ public interface JobRepository extends JpaRepository<Jobs,Integer> {
     @Query(value = "SELECT j.job_title as nombrepuesto, max(e.salary) as salariomaximo, min(e.salary) as salariominimo , sum(e.salary) as salariototal, truncate(avg(e.salary),2) as salarioprom\n" +
             "FROM jobs j\n" +
             "inner join employees e on e.job_id=j.job_id\n" +
-            "group by j.job_title", nativeQuery = true)
+            "group by j.job_title order by nombrepuesto", nativeQuery = true)
     List<JobsporMinMaxSalaryDto> jobsPorMinyMaxSalary(); //asoaciado con el tipo de dto creado
 }

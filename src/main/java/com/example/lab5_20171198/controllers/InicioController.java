@@ -11,7 +11,7 @@ public class InicioController {
     @GetMapping("/")
     public String inicio(){
 
-        return "principal";
+        return "fragments/principal";
     }
 
     /*@GetMapping("/reportes")
