@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+          crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+  <title>Nuevo ingreso</title>
+</head>
+<body>
+<main>
+  <div class="container px-4 py-5">
+    <h1 class="pb-2 mb-3 border-bottom">Nuevo ingreso</h1>
+    <form method="post" th:action="@{'/empleado/save'}" class="mt-2">
+      <div class="mb-3">
+        <label for="name" class="form-label">Nombre</label>
+        <input name="name" type="text" class="form-control" id="name">
+      </div>
+      <div class="mb-3">
+        <label for="apellido" class="form-label">Apellido</label>
+        <input name="phone" type="text" class="form-control" id="apellido">
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">email</label>
+        <input name="email" type="email" class="form-control" id="email">
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">contraseña</label>
+        <input name="password" type="text" class="form-control" id="password">
+      </div>
+
+      <div class="mb-3">
+        <label for="jobs" class="form-label">puesto</label>
+        <select class="form-select" id="jobs">
+
+          <option th:each="puesto : ${puestos}" th:text="${puesto.jobTitle}" th:value="${puesto.id}"> </option>
+        </select>
+
+      </div>
+
+      <div class="mb-3">
+        <label for="sueldo" class="form-label">sueldo</label>
+        <input name="sueldo" type="text" class="form-control" id="sueldo">
+      </div>
+
+      <div class="mb-3">
+        <label for="jefe" class="form-label">jefe</label>
+        <select class="form-select" id="jefe">
+
+          <option th:each="manager : ${empleadoList}" th:text="| ${manager.firstName} - ${manager.lastName} |" th:value="${manager.id}"> </option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="departamento" class="form-label">departamento</label>
+        <select class="form-select" id="departamento">
+
+          <option th:each="department : ${departamentos}" th:text="${department.nombre}" th:value="${department.id}"> </option>
+        </select>
+      </div>
+
+      <a th:href="@{'/empleado/list'}" class="btn btn-danger">Cancelar</a>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+  </div>
+</main>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

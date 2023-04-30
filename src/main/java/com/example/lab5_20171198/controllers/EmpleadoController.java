@@ -2,7 +2,9 @@ package com.example.lab5_20171198.controllers;
 
 
 import com.example.lab5_20171198.entity.Empleado;
+import com.example.lab5_20171198.repository.DepartmentRepository;
 import com.example.lab5_20171198.repository.EmpleadoRepository;
+import com.example.lab5_20171198.repository.JobRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,38 +20,51 @@ import java.util.Optional;
 @RequestMapping("/empleado")
 public class EmpleadoController {
 
-
     final EmpleadoRepository empleadoRepository;
+    final JobRepository jobRepository;
+    final DepartmentRepository departmentRepository;
 
-    public EmpleadoController(EmpleadoRepository empleadoRepository) {
+
+    public EmpleadoController(EmpleadoRepository empleadoRepository, JobRepository jobRepository, DepartmentRepository departmentRepository) {
         this.empleadoRepository = empleadoRepository;
+        this.jobRepository = jobRepository;
+        this.departmentRepository = departmentRepository;
     }
 
+
+
+    //listar empelados
     @GetMapping(value = {"/list", ""})
-    public String listarTransportistas(Model model) {
+    public String listarEmpleados(Model model) {
 
         List<Empleado> lista = empleadoRepository.findAll();
         model.addAttribute("empleadoList", lista);
         //model.addAttribute("empleadoPorRegion", employeeRepository.listarEmpleadosPorRegion());
        //model.addAttribute("empleadosPorPais",employeeRepository.listarEmpleadosPorPais());
 
-        empleadoRepository.actualizarNombreCompania("hola2",11);
+        //empleadoRepository.actualizarNombreCompania("hola2",11);
 
-        return "Empleados/listaEmpleados";
+        return "empleados/listaEmpleados";
     }
 
+
+    //vista para crear un empelado
     @GetMapping("/new")
-    public String nuevoTransportistaFrm() {
-        return "Empleados/nuevoEmpleado";
+    public String nuevoEmpleado(Model model) {
+
+        model.addAttribute("puestos", jobRepository.findAll());
+        model.addAttribute("departamentos", departmentRepository.findAll());
+        model.addAttribute("empleadoList", empleadoRepository.findAll());
+        return "empleados/nuevoEmpleado";
     }
 
     @PostMapping("/save")
-    public String guardarNuevoTransportista(Empleado empleado, RedirectAttributes attr) {
+    public String guardarNuevoEmpleado(Empleado empleado, RedirectAttributes attr) {
 
         if (empleado.getId() == null) {
-            attr.addFlashAttribute("msg", "Transportista creado exitosamente");
+            attr.addFlashAttribute("msg", "empleado creado exitosamente");
         } else {
-            attr.addFlashAttribute("msg", "Transportista actualizado exitosamente");
+            attr.addFlashAttribute("msg", "empleado actualizado exitosamente");
         }
 
         empleadoRepository.save(empleado);
@@ -60,19 +75,19 @@ public class EmpleadoController {
     public String editarEmpleado(Model model,
                                       @RequestParam("id") int id) {
 
-        Optional<Empleado> optShipper = empleadoRepository.findById(id);
+        Optional<Empleado> optionalEmpleado = empleadoRepository.findById(id);
 
-        if (optShipper.isPresent()) {
-            Empleado empleado = optShipper.get();
-            model.addAttribute("shipper", empleado);
-            return "Empleados/editarEmp";
+        if (optionalEmpleado.isPresent()) {
+            Empleado empleado = optionalEmpleado.get();
+            model.addAttribute("empleado", empleado);
+            return "empleados/editarEmp";
         } else {
             return "redirect:/empleado/list";
         }
     }
 
     @GetMapping("/delete")
-    public String borrarTransportista(@RequestParam("id") int id) {
+    public String borrarEmpleado(@RequestParam("id") int id) {
 
         Optional<Empleado> optShipper = empleadoRepository.findById(id);
         if (optShipper.isPresent()) {
@@ -86,9 +101,9 @@ public class EmpleadoController {
     public String buscarTransportista(@RequestParam("searchField") String searchField,
                                       Model model) {
 
-        List<Empleado> listaTransportistas = empleadoRepository.buscarTransPorCompName(searchField);
-        model.addAttribute("shipperList", listaTransportistas);
+        //List<Empleado> listaEmpleados = empleadoRepository.buscarTransPorCompName(searchField);
+        //model.addAttribute("empleadosList", listaEmpleados);
 
-        return "Empleados/listaEmpleados";
+        return "empleados/listaEmpleados";
     }
 }

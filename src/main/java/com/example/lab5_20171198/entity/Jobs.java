@@ -9,11 +9,13 @@ import org.springframework.stereotype.Controller;
 @Entity
 @Getter
 @Setter
+@Table(name = "jobs")
 public class Jobs {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(name = "job_id")
+    private String id;
 
     @Column(name = "job_title")
     private String jobTitle;

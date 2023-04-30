@@ -5,16 +5,19 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Date;
+
 @Entity
 @Getter
 
 @Setter
 
-
+@Table(name = "employees")
 public class Empleado {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "employee_id")
     private Integer id;
 
     @Column(name = "first_name")
@@ -27,19 +30,32 @@ public class Empleado {
 
     private String password;
 
+    private Double salary;
 
-    @Column(name = "phonenumber")
+    @Column(name = "commission_pct")
+    private Double commission;
+
+    @Column(name = "phone_number")
     private String numeroTel;
 
-    @Column(name = "enabled")
     private Integer enabled;
 
     @Column(name = "hire_date")
-    private String hireDate;
+    private Date hireDate;
 
     @ManyToOne
     @JoinColumn(name = "job_id")
     private Jobs job;
+
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
+
+    @ManyToOne
+    @JoinColumn(name = "manager_id")
+    private Empleado manager;
+
+
 
 
 

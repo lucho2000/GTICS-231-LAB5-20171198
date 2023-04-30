@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <title>Editar empleado</title>
+</head>
+<body>
+<main>
+    <div class="container px-4 py-5">
+        <h1 class="pb-2 mb-3 border-bottom">Editar empleado</h1>
+        <form method="post" th:action="@{'/empleado/save'}" class="mt-2">
+            <input th:value="${empleado.id}" name="shipperId" type="hidden" />
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input th:value="${empleado.firstName}" name="nombre" type="text" class="form-control" id="nombre" />
+            </div>
+            <div class="mb-3">
+                <label for="apellido" class="form-label">apellido</label>
+                <input th:value="${empleado.lastName}" name="apellido" type="text" class="form-control" id="apellido" />
+            </div>
+            <div class="mb-3">
+                <label for="puesto" class="form-label">puesto</label>
+                <input th:value="${empleado.getJob().getJobTitle()}" name="puesto" type="text" class="form-control" id="puesto" />
+            </div>
+            <div class="mb-3">
+                <label for="apellido" class="form-label">apellido</label>
+                <input th:value="${empleado.lastName}" name="apellido" type="text" class="form-control" id="apellido" />
+            </div>
+            <a th:href="@{'/shipper/list'}" class="btn btn-danger">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Actualizar</button>
+        </form>
+    </div>
+</main>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
