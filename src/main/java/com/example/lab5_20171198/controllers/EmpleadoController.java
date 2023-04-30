@@ -59,15 +59,20 @@ public class EmpleadoController {
     }
 
     @PostMapping("/save")
-    public String guardarNuevoEmpleado(Empleado empleado, RedirectAttributes attr) {
+    public String guardarNuevoEmpleado(@RequestParam("name")String nombre, @RequestParam("apellido") String apellido,
+                                       @RequestParam("email") String email, @RequestParam("password") String password,
+                                       @RequestParam("jobs") String jobId, @RequestParam("sueldo") Double sueldo,
+                                       @RequestParam("jefe") int jefeId, @RequestParam("departamento") int departamentoId,
+                                       RedirectAttributes attr) {
 
-        if (empleado.getId() == null) {
-            attr.addFlashAttribute("msg", "empleado creado exitosamente");
-        } else {
-            attr.addFlashAttribute("msg", "empleado actualizado exitosamente");
-        }
 
-        empleadoRepository.save(empleado);
+        //empleado=new Empleado(nombre, apellido, email, password, jobId, sueldo, jefeId, departamentoId);
+        //if (empleado.getId() == null) {
+        attr.addFlashAttribute("msg", "empleado creado exitosamente");
+        empleadoRepository.guardarEmpleado(nombre, apellido, email, password, jobId, sueldo, jefeId, departamentoId);
+        //}
+
+
         return "redirect:/empleado/list";
     }
 
@@ -91,7 +96,7 @@ public class EmpleadoController {
 
         Optional<Empleado> optShipper = empleadoRepository.findById(id);
         if (optShipper.isPresent()) {
-            empleadoRepository.deleteById(id);
+            empleadoRepository.borrarEmpleado(id);
         }
         return "redirect:/empleado/list";
 

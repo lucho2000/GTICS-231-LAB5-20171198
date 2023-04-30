@@ -55,9 +55,4 @@ public class Empleado {
     @JoinColumn(name = "manager_id")
     private Empleado manager;
 
-
-
-
-
-
 }

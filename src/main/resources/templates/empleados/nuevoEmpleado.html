@@ -21,7 +21,7 @@
       </div>
       <div class="mb-3">
         <label for="apellido" class="form-label">Apellido</label>
-        <input name="phone" type="text" class="form-control" id="apellido">
+        <input name="apellido" type="text" class="form-control" id="apellido">
       </div>
 
       <div class="mb-3">
@@ -36,7 +36,7 @@
 
       <div class="mb-3">
         <label for="jobs" class="form-label">puesto</label>
-        <select class="form-select" id="jobs">
+        <select name="jobs" class="form-select" id="jobs">
 
           <option th:each="puesto : ${puestos}" th:text="${puesto.jobTitle}" th:value="${puesto.id}"> </option>
         </select>
@@ -50,15 +50,15 @@
 
       <div class="mb-3">
         <label for="jefe" class="form-label">jefe</label>
-        <select class="form-select" id="jefe">
+        <select name="jefe" class="form-select" id="jefe">
 
-          <option th:each="manager : ${empleadoList}" th:text="| ${manager.firstName} - ${manager.lastName} |" th:value="${manager.id}"> </option>
+          <option th:each="manager : ${empleadoList}" th:text="${manager.firstName} + ' ' + ${manager.lastName} " th:value="${manager.id}"> </option>
         </select>
       </div>
 
       <div class="mb-3">
         <label for="departamento" class="form-label">departamento</label>
-        <select class="form-select" id="departamento">
+        <select name="departamento" class="form-select" id="departamento">
 
           <option th:each="department : ${departamentos}" th:text="${department.nombre}" th:value="${department.id}"> </option>
         </select>
