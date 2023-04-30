@@ -10,9 +10,8 @@
   <style>
     /* Estilos CSS del menú lateral */
     .menu-lateral {
-      background-color: #f2f2f2;
+      background-color: #aa8a8b29;
       height: 100%;
-      position: fixed;
       left: 0;
       top: 0;
       overflow-x: hidden;
@@ -44,11 +43,11 @@
 </head>
 <body>
 <h1>Reportes y Dashboards</h1>
-<div class="menu-lateral">
-  <ul>
-    <li><a th:href="@{/reportes/lista}">salario</a></li>
-    <li><a th:href="@{/reportes/tentativa}">tentativa aumento</a></li>
-  </ul>
+  <div class="menu-lateral">
+    <ul>
+      <li><a th:href="@{/reportes/lista}">salario</a></li>
+      <li><a th:href="@{/reportes/tentativa}">tentativa aumento</a></li>
+    </ul>
 </div>
 </body>
 </html>
